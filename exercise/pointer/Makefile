@@ -1,4 +1,4 @@
-target: q1 q2
+target: q1 q2 q3
 
 clean: 
 	rm -f q1 q2
@@ -9,4 +9,7 @@ q1: q1.c
 
 q2: q2.c
 	gcc -o q2 q2.c -Wall
+
+q3: q3.c
+	gcc -o q3 q3.c -Wall
 
