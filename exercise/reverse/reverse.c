@@ -15,10 +15,6 @@ Node addNode(Node *root, char *val){
     curr=curr->next;
     curr->val = strdu(*val);
     curr->next = NULL;
-
-
-
-
 }
 int
 main(int argc, char *argv[]){
