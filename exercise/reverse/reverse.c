@@ -1,37 +1,65 @@
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node{
+typedef struct node {
     char *val;
-    struct Node *next;
-} Node;
+    struct node *next;
+} node;
 
-Node addNode(Node *root, char *val){
-    Node *curr = root;
-    while(curr->next){
-        curr = curr->next;
+node *
+addToEnd(node *root, char *val){
+    node *dummy= root;
+    while(dummy->next){
+        dummy = dummy->next;
     }
-    curr->next = malloc(sizeof(Node));
-    curr=curr->next;
-    curr->val = strdu(*val);
-    curr->next = NULL;
+    node *newNode = malloc(sizeof(node));
+    newNode->next = NULL;
+    newNode->val = strdup(val);   
+    dummy->next = newNode;
+    return root;
 }
+
+void
+printNode(node *root){
+    node *dummy = root;
+    while(dummy){
+        if(dummy != root){
+            printf("->%s",dummy->val);
+        }
+        dummy = dummy->next;
+    }
+    printf("\n");
+}
+
+void *
+reverse(node* root){
+    node *prev = root;
+    node *curr = root->next;
+    while(curr){
+        node *dummy = curr->next;
+        // printf("%s\n",dummy->val);
+        curr->next = prev;
+        // printf("%s\n",curr->next->val);
+        prev = curr;
+        // printf("%s\n",prev->val);
+        curr = dummy;
+        // printf("%s\n",curr->val);
+    }
+    return curr;
+}
+
 int
 main(int argc, char *argv[]){
-    if(argc>3){
-        fprintf(stderr, "too many arguments\n");
-        exit(1);
-    }
-    char *line = NULL;   // buffer managed by getline
-    size_t len = 0;      // capacity, managed by getline
-    ssize_t nread;
+    node *root = malloc(sizeof(node));
+    root->val = NULL;
+    root->next = NULL;
+    addToEnd(root, "node1");
+    addToEnd(root, "node2");
+    addToEnd(root, "node3");
+    printNode(root);
+    root = reverse(root);
+    printf("%s\n",root->next->val);
+    printNode(root);
 
-    while ((nread = getline(&line, &len, stdin)) != -1) {
-        printf("Read line (%zd chars): %s", nread, line);
-    }
-    printf("%s", line);
-    free(line);  // only once, at the end
-    printf("%s", line);
-    printf("done");
-    return 0;
 }
