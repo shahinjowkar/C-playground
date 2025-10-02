@@ -1,0 +1,6 @@
+this is a simple reverse program
+what it does is
+1) get from std in reverse to stdout
+2) get from file and reverse to another
+DS used: linked list
+algo used: reversed Linked list
